@@ -163,16 +163,15 @@ while player.chips > 0:
         player.draw_two_cards(deck.draw_two_cards())
         dealer.draw_two_cards(deck.draw_two_cards())
 
-    # check if player is blackjack
+    # GET TOTAL
+    player.get_total()
+    dealer.get_total()
 
+    # check if player is blackjack
     if player.is_blackjack:
         print('You Win! It\'s a BLACKJACK')
         player.manage_chips(True)
 
-    # GET TOTAL
-
-    player.get_total()
-    dealer.get_total()
 
     player.show_hands()
     dealer.show_hands()
@@ -189,7 +188,10 @@ while player.chips > 0:
             # add card equivalent to drawn cards
             difference = len(player.hand) - len(dealer.hand)
 
-            for _ in difference:
+            if difference > 1:
+                for _ in difference:
+                    dealer.draw_card(deck.draw_card())
+            else:
                 dealer.draw_card(deck.draw_card())
 
             dealer.get_total()
